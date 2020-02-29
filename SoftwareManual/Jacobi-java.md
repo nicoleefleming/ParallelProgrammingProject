@@ -15,10 +15,10 @@ For example,
 
 will produce in running the program in both sources. If one does not have the gradle installed with the project, to run from the commandline
 
-    "FILE-PATH" src/LinearSolvers/*.java -d classes
-    "FILE-PATH" -cp classes LinearSolvers.java
+    "FILE-PATH" src/IterativeMethods/*.java -d classes
+    "FILE-PATH" -cp classes IterativeMethods.java
     
-where the method belonds to the class LinearSolvers. 
+where the method belonds to the class IterativeMethods.
 
 **Description/Purpose:** This is the Java implementation that was written for the course math5620 in Spring 2020. This is the code strucure that works there, and was the model for the C++ parallel implementation of the code. 
 
