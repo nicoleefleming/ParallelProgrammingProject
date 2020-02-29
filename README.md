@@ -11,7 +11,7 @@ From here you can access the following:
 
 ## Manual Pages
 [Jacobi-java](https://github.com/nicoleefleming/ParallelProgrammingProject/blob/master/SoftwareManual/Jacobi-java.md)    
-[]()      
+[test_convergence-java](https://github.com/nicoleefleming/ParallelProgrammingProject/blob/master/SoftwareManual/test_convergence-java.md)      
 
 ### Idea Contributor Sites
 Java code file for Jacobi Iteration came from Nicole's math5620 repository. After April 2020 that link will be here.     
