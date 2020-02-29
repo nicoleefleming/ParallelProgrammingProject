@@ -2,11 +2,16 @@
 From here you can access the following:   
 
 ## Read Me files for each piece
+[Jacobi-java-README](https://github.com/nicoleefleming/ParallelProgrammingProject/blob/master/Source/Jacobi-java-README.md)     
+[]()  
 
 ## Source Files
-[Jacobi](https://github.com/nicoleefleming/ParallelProgrammingProject/edit/master/Source/Jacobi.java)     
+[Jacobi-java](https://github.com/nicoleefleming/ParallelProgrammingProject/edit/master/Source/Jacobi.java)     
 []()    
+
 ## Manual Pages
+[Jacobi-java](https://github.com/nicoleefleming/ParallelProgrammingProject/blob/master/SoftwareManual/Jacobi-java.md)    
+[]()      
 
 ### Idea Contributor Sites
 Java code file for Jacobi Iteration came from Nicole's math5620 repository. After April 2020 that link will be here.     
