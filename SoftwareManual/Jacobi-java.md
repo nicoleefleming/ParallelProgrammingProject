@@ -33,7 +33,7 @@ The code can be tested by running it and printing out the results via a for loop
 
 **Implementation/Code:** 
 
-    void jacobi(double A[][], double b[], int n, double x[])
+    public void jacobi(double A[][], double b[], int n, double x[])
     {
 
         int i, j, k, p;
