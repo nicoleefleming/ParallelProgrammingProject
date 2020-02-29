@@ -1,1 +1,1 @@
-Edit here
+This method is the java implementation for the Jacobi Iterative Method. The code that is in the .java file was written for use in solving Differential Equation problems. However, the Jacobi Method can be used to solve any linear system of equations. The only problem with Jacobi is that if the matrix is not a diagonally dominant matrix, the method cannot prove, or assure that, convergence will happen. There is a bit of instability and lack of consistency seen with some matrices that are not diagonally dominant. 
