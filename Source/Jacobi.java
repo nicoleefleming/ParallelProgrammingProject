@@ -4,7 +4,7 @@ import java.lang.*;
 
 public class Jacobi {
 
-    static int test_convergence(double []x, double []oldx, int n)
+    public int test_convergence(double []x, double []oldx, int n)
     {
         double maxvalue, tempvalue;
         int i;
@@ -25,7 +25,7 @@ public class Jacobi {
 
     } // test_convergence
 
-    static void jacobi(double A[][], double b[], int n, double x[])
+    public void jacobi(double A[][], double b[], int n, double x[])
     {
 
         int i, j, k, p;
