@@ -9,3 +9,5 @@ From here you can access the following:
 ## Manual Pages
 
 ### Idea Contributor Sites
+Java code file for Jacobi Iteration came from Nicole's math5620 repository. After April 2020 that link will be here.     
+
