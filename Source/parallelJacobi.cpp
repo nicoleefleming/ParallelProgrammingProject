@@ -40,6 +40,7 @@ double[] RHSinit(double[] b)
     for (int i = 0; i < DIM; i++)
     {
         b[i] = 0.0;
+        //b[i] = cos(pi*i);
     }
     //Do Boundary Conditions need to be taken into account?
     return b;
@@ -50,7 +51,39 @@ double[] RHSinit(double[] b)
 //TODO: Jacobi Method
 double[] jacobi(double[] subB, double[] ad, double[] al, double[] as, double xZero) 
 {
-    // TODO: insert code from 5620 here :)
+    //temporary storage array.
+    double[DIM] x1;
+
+    //xnew to hold new found values of x
+    double[] xnew = x1;
+
+    //xold to old old values of x with guess at index 0
+    double[] xold = x;
+
+    //Iterative process for Jacobi Method. In other examples there is a use of Swap, 
+    //I don't think it is needed here. 
+
+    //Using form:: xnew = (1/D)(b - (L+U)*xold)
+    //where (b - (L+U)*xold) == C, compute C
+    for (int i = 0; i < DIM; i++)
+    {
+        xnew[i] = subB[i];
+    }
+    for(int i = 0; i < (DIM - 1); i++)
+    {
+        xnew[i] = xnew[i] - al[i]*xold[i];
+        xnew[i] = xnew[i] - as[i]*xold[i+1];
+    }
+
+    //compute (1/D)*C
+    for (int i = 0; i < DIM; i++)
+    {
+        xnew[i] = xnew[i]/ad[i];
+    }
+    
+    //return approximated xValues
+    return xnew;
+    
 }
 
 //TODO: if time, test convergence :)
@@ -112,3 +145,27 @@ int main(int argc, char **argv)
 	MPI_Finalize();
 	return 0;
 }
+
+/* Jacobi notes. 
+do {
+        iter_num++;
+        
+        // Interchange x_old and x_new 
+        Swap(x_old, x_new);
+        
+        for (i_local = 0; i_local < n_bar; i_local++)
+        {
+            i_global = i_local + my_rank*n_bar;
+            x_local[i_local] = b_local[i_local];
+           
+            for (j = 0; j < i_global; j++)
+            {
+                x_local[i_local] = x_local[i_local] - A_local[i_local][j]*x_old[j];
+            }
+            for (j = i_global+1; j < n; j++)
+            {
+                x_local[i_local] = x_local[i_local] -  A_local[i_local][j]*x_old[j];
+            }
+            x_local[i_local] = x_local[i_local]/A_local[i_local][i_global];
+        }
+*/
