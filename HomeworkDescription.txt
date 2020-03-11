@@ -1,0 +1,12 @@
+The purpose of this assignment is to implement a parallelized version of the Jacobi iterative method to approximate
+the x vector in the formula Ax = b. 
+    1. For the purposes of the assignment, matrix A is assumed to be diagonally dominant, meaning it converges. Also assume matrix A has first subdiagonal and first superdiagonal are all 1's, and the main diagonal are all -2's. 
+    2. The dimensions of A, x, and b will be a multiple of the number of processors used. i.e. for 4 processors 20, 100, 10,000 could be the dimesion.
+    3. Use MPI methods Gather/Scatter or use a master/slave approach to complete this task. Both methods are pretty simple, but it is your prefence on which to use.
+    4. Look up and famaliarize yourself with the Jacobi iterative method. 
+    5. Create a function that implements the Jacobi method to approximate x values in the equation Ax = b.
+    6. To test your Jacobi method is working correctly, assume the vector b is all 0's. After verifying your Jacobi method works, assume b = cos(pi * p) and solve for the vector x. 
+    7. Time the program using 4, 8, and 10 processors, with dimensions of 40, 200, 1000. Then report the results for the number of processors by the dimensions in a visually appealing way(table, graph, etc.).
+    8. Type up a report of your program using LaTex. 
+    9. Turn in a pdf of the report, and your source code in a .zip file to canvas.
+    10. Smile, you're done :)
