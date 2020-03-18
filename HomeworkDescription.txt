@@ -10,3 +10,5 @@ the x vector in the formula Ax = b.
     8. Type up a report of your program using LaTex. 
     9. Turn in a pdf of the report, and your source code in a .zip file to canvas.
     10. Smile, you're done :)
+
+Here is a link to help you understand the Jacobi Iteration Method https://youtu.be/bR2SEe8W3Ig

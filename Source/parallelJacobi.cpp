@@ -5,23 +5,22 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <math.h>
+#include <time.h>
 
-#define MPI_COMM_WORLD MCW
-#define DIM 20
+#define MCW MPI_COMM_WORLD
+
 #define maxIters 50
-
+#define DIM 10000
+#define PI 3.14159265
 using namespace std;
 
 //Global variables
-double[DIM][DIM] A;
-double[DIM][DIM] L;
-double[DIM][DIM] U;
-double[DIM][DIM] D;
-double[DIM] b;
-double[DIM] x;
+double A[DIM][DIM] ;
+double b[DIM];
+double x[DIM];
 
 //initialize A to a diagonally dominant matrix
-double[][] initA(double[] ad, double[] al, double[] as)
+void initA(double ad[], double al[], double as[])
 {
     for (int i = 0; i < DIM; i++)
     {
@@ -30,38 +29,37 @@ double[][] initA(double[] ad, double[] al, double[] as)
         A[i+1][i] = al[i];    //first sub-diagonal
     }
     
-    return A;
 }
 
 
 //initialize RHS vector b
-double[] RHSinit(double[] b)
+void RHSinit(double b[])
 {
     for (int i = 0; i < DIM; i++)
     {
-        b[i] = 0.0;
-        //b[i] = cos(pi*i);
+        b[i] = 1.0;
+        // b[i] = cos(PI*i);
     }
     //Do Boundary Conditions need to be taken into account?
-    return b;
 }
 
 //TODO: figure out L,U,D 
 
 //TODO: Jacobi Method
-double[] jacobi(double[] subB, double[] ad, double[] al, double[] as, double xZero) 
+double* jacobi(double subB[], double ad[], double al[], double as[], double xZero) 
 {
     //temporary storage array.
-    double[DIM] x1;
+    double x1[DIM];
 
     //xnew to hold new found values of x
-    double[] xnew = x1;
+    static double xnew[DIM];
 
     //xold to old old values of x with guess at index 0
-    double[] xold = x;
-
-    //Iterative process for Jacobi Method. In other examples there is a use of Swap, 
-    //I don't think it is needed here. 
+    double xold[DIM];
+    for(int i = 0; i <DIM; i++)
+    {
+        xold[i] = x[i];
+    }
 
     //Using form:: xnew = (1/D)(b - (L+U)*xold)
     //where (b - (L+U)*xold) == C, compute C
@@ -97,8 +95,12 @@ int main(int argc, char **argv)
 	MPI_Comm_size(MCW, &size);
     int iter = 0;
     int subB;
-    double[] subArrB;
-    double[] subArrX;
+    double subArrB[DIM/size];
+    double *subArrX;
+    double ad[DIM];
+    double as[DIM - 1];
+    double al[DIM - 1];
+
 	
     //initialize ad, as, al
     for (int i = 0; i < DIM; i++)
@@ -110,15 +112,23 @@ int main(int argc, char **argv)
         as[i] = 1.0;
         al[i] = 1.0;
     }
+    // printf("Initialized ad, as, al");
 
     //initialize A
-    A = initA(ad,al,as);
+    initA(ad,al,as);
+    // printf("Initialized A");
 
     //initialize b
-    b = RHSinit(b);
+    RHSinit(b);
+    // printf("Initialized b");
 
     // split array b
     subB = DIM / size; // 5 for DIM 20
+    // printf("Split b");
+
+    double startProcessTime = MPI_Wtime();
+    // double start = time();
+
     MPI_Scatter(&b, subB, MPI_DOUBLE, &subArrB, subB, MPI_DOUBLE, 0, MCW);
 
     double xZero = 1.0;     // this is our guess
@@ -134,15 +144,23 @@ int main(int argc, char **argv)
     }
     //MPI_Barrier(MCW);
     MPI_Gather (&subArrX, subB, MPI_DOUBLE, x, subB, MPI_DOUBLE, 0, MCW);
-    //MPI_Barrier(MCW);
+    MPI_Barrier(MCW);
 
-    sleep(1);
+    
+    // sleep(1);
 
-    //MPI_Gather(A_local, n_bar*MAX_DIM, MPI_FLOAT, temp, n_bar*MAX_DIM, MPI_FLOAT, 0, MPI_COMM_WORLD);
-    //MPI_Scatter(&startArr, (SIZE/size), MPI_INT, &subArr, (SIZE/size), MPI_INT, 0, MCW);
+    double endProcessTime = MPI_Wtime();
+    // double end = time();
+
+    double duration = endProcessTime - startProcessTime;
+
+    if(!rank) 
+    {
+        cout << "Duration: " << duration << " seconds " << endl;
+    }
 
 
-	MPI_Finalize();
+	// MPI_Finalize();
 	return 0;
 }
 
